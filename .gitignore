@@ -4,3 +4,4 @@ dist
 backups/
 *.log
 tests/.seed.json
+.env.docker

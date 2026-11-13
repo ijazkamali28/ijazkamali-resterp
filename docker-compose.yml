@@ -1,0 +1,63 @@
+# Test / staging stack: PostgreSQL 16 + API + Caddy (automatic HTTPS).
+# Usage: cp .env.docker.example .env.docker  (edit it), then
+#        docker compose --env-file .env.docker up -d --build
+name: restaurant-erp
+
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env.docker}
+      POS_OWNER_PASSWORD: ${POS_OWNER_PASSWORD:?set POS_OWNER_PASSWORD in .env.docker}
+      POS_APP_PASSWORD: ${POS_APP_PASSWORD:?set POS_APP_PASSWORD in .env.docker}
+      TZ: Asia/Dubai
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./deploy/initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d restaurant_pos"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    # no published port: the database is reachable only from the app container
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: ${APP_ENV:-staging}
+      DATABASE_URL: postgres://pos_app:${POS_APP_PASSWORD}@db:5432/restaurant_pos
+      DATABASE_OWNER_URL: postgres://pos_owner:${POS_OWNER_PASSWORD}@db:5432/restaurant_pos
+      NODE_TYPE: cloud
+      DEMO_SEED: ${DEMO_SEED:-true}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      CORS_ORIGINS: ${CORS_ORIGINS:-}
+      TZ: Asia/Dubai
+    volumes:
+      - backups:/app/backups
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - app
+    environment:
+      DOMAIN: ${DOMAIN:-:80}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  pgdata:
+  backups:
+  caddy_data:
+  caddy_config:

@@ -22,6 +22,15 @@ TOKEN=$(curl -s localhost:8080/api/v1/auth/login -H 'content-type: application/j
 curl -s localhost:8080/api/v1/auth/me -H "authorization: Bearer $TOKEN"
 ```
 
+## Test server (Docker)
+
+Step-by-step guide for a browser-accessible test server (cloud VM or your own computer): [docs/DEPLOY.md](docs/DEPLOY.md).
+
+```bash
+cp .env.docker.example .env.docker   # change the passwords
+docker compose --env-file .env.docker up -d --build
+```
+
 ## Phase 0 deliverables
 
 | # | Deliverable | Where |

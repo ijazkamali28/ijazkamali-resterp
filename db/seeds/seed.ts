@@ -228,7 +228,11 @@ export async function seed(ownerUrl: string, opts: { nodeType?: 'cloud' | 'branc
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const url = process.env.DATABASE_OWNER_URL;
   if (!url) { console.error('DATABASE_OWNER_URL is required'); process.exit(1); }
+  const ifEmpty = process.argv.includes('--if-empty');   // used by the Docker entrypoint on every start
   seed(url, { nodeType: (process.env.NODE_TYPE as any) ?? 'cloud' })
     .then(() => console.log(`demo users: <role>@demo.ae / ${DEMO_PASSWORD}; superadmin@platform.local / ${ADMIN_PASSWORD}`))
-    .catch((e) => { console.error(e); process.exit(1); });
+    .catch((e) => {
+      if (ifEmpty && /demo data already present/.test(String(e?.message))) { console.log('demo data already present; skipping'); return; }
+      console.error(e); process.exit(1);
+    });
 }

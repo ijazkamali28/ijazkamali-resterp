@@ -1,0 +1,6 @@
+# DOMAIN=":80"                -> plain HTTP on port 80 (local testing)
+# DOMAIN="pos-test.example.com" -> automatic HTTPS certificate from Let's Encrypt
+{$DOMAIN} {
+	encode gzip
+	reverse_proxy app:8080
+}
