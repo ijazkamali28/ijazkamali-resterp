@@ -1,0 +1,19 @@
+:root{--bg:#f6f7f9;--card:#fff;--fg:#1d2330;--muted:#667085;--line:#e3e6eb;--accent:#1f6feb;--ok:#1a7f37;--bad:#cf222e;--warn:#9a6700}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#171a21;--fg:#e6e8ec;--muted:#98a2b3;--line:#2a2f3a;--accent:#4c8dff;--ok:#3fb950;--bad:#f85149;--warn:#d29922}}
+*{box-sizing:border-box}body{margin:0;font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--fg)}
+header{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--card)}
+h1{font-size:16px;margin:0}h2{font-size:14px;margin:0 0 10px}
+main{max-width:980px;margin:0 auto;padding:16px;display:grid;gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{min-width:0}
+select,input,textarea,button{font:inherit;color:inherit;background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:7px 10px}
+input#path{flex:1 1 220px}textarea{width:100%;margin-top:8px;font-family:ui-monospace,monospace}
+button{cursor:pointer}button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.muted{color:var(--muted)}.small{font-size:12px}
+pre{margin:8px 0 0;max-height:420px;overflow:auto;background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:10px;font-size:12px;white-space:pre-wrap;word-break:break-word}
+.sc{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:8px 0;border-top:1px solid var(--line)}
+.sc:first-child{border-top:0}.sc .t{font-weight:600}.sc .e{font-size:12px;color:var(--muted)}
+.badge{font-size:12px;padding:2px 8px;border-radius:99px;border:1px solid var(--line);white-space:nowrap}
+.badge.ok{color:var(--ok);border-color:var(--ok)}.badge.bad{color:var(--bad);border-color:var(--bad)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.chip{font-size:12px;padding:2px 8px;border-radius:99px;background:var(--bg);border:1px solid var(--line)}
+@media (max-width:600px){.sc{grid-template-columns:1fr}.sc button{justify-self:start}}

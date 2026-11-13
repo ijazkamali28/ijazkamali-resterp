@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POS ERP Test Console</title>
+<link rel="stylesheet" href="/console.css">
+</head>
+<body>
+<header>
+  <h1>Restaurant POS &amp; ERP — Phase 0 test console</h1>
+  <span id="who" class="muted">not logged in</span>
+</header>
+<main>
+  <section class="card">
+    <h2>1. Log in as</h2>
+    <div class="row">
+      <select id="user"></select>
+      <button id="loginBtn" class="primary">Log in</button>
+      <button id="logoutBtn">Log out</button>
+    </div>
+    <p class="muted small">Demo password for every demo user is filled in automatically. Try the same steps as different roles and compare.</p>
+  </section>
+
+  <section class="card">
+    <h2>2. Who am I</h2>
+    <div id="me" class="muted">Log in first.</div>
+  </section>
+
+  <section class="card">
+    <h2>3. Scenarios</h2>
+    <p class="muted small">Each scenario says what <em>should</em> happen. The result badge turns green when the server behaves as expected for the current user.</p>
+    <div id="scenarios"></div>
+  </section>
+
+  <section class="card">
+    <h2>4. Custom request</h2>
+    <div class="row">
+      <select id="method"><option>GET</option><option>POST</option><option>PATCH</option><option>PUT</option><option>DELETE</option></select>
+      <input id="path" value="/auth/me" aria-label="path">
+      <button id="sendBtn" class="primary">Send</button>
+    </div>
+    <textarea id="body" rows="4" placeholder='JSON body, e.g. {"code":"DXB2","name":"New branch"}'></textarea>
+  </section>
+
+  <section class="card">
+    <h2>Response</h2>
+    <div id="status" class="muted">—</div>
+    <pre id="out"></pre>
+  </section>
+</main>
+<script src="/console.js"></script>
+</body>
+</html>

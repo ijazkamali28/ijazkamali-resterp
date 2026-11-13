@@ -1,0 +1,48 @@
+# Navigation structure
+
+_Generated from `src/modules/meta/navigation.ts`. The API serves the user-specific tree at `GET /api/v1/meta/navigation`; menu entries a user lacks permissions for are never sent to the client._
+
+- **Dashboard** `/` — phase 8 — requires any of: `report.sales.view`, `report.financial.view`
+- **POS** — phase 2
+  - **Order entry** `/pos` — phase 2 — requires any of: `pos.order.create`
+  - **Table plan** `/pos/tables` — phase 2 — requires any of: `pos.order.create`, `pos.table.manage`
+  - **Orders** `/pos/orders` — phase 2 — requires any of: `pos.order.view`
+  - **Cashier shifts** `/pos/shifts` — phase 2 — requires any of: `pos.shift.open`, `pos.shift.variance_approve`
+- **Kitchen display** `/kds` — phase 3 — requires any of: `kds.view`
+- **Delivery** — phase 7
+  - **Dispatch board** `/delivery` — phase 7 — requires any of: `dlv.delivery.dispatch`, `dlv.delivery.view`
+  - **My deliveries** `/delivery/mine` — phase 7 — requires any of: `dlv.delivery.update`
+  - **Riders** `/delivery/riders` — phase 7 — requires any of: `dlv.rider.manage`
+  - **Zones & fees** `/delivery/zones` — phase 7 — requires any of: `dlv.zone.manage`
+  - **Aggregator orders** `/aggregators/orders` — phase 7 — requires any of: `agg.view`
+- **Menu** — phase 1
+  - **Dishes & categories** `/menu` — phase 1 — requires any of: `menu.view`
+  - **Modifiers & combos** `/menu/modifiers` — phase 1 — requires any of: `menu.manage`
+  - **Pricing** `/menu/pricing` — phase 1 — requires any of: `menu.price.manage`, `menu.price.approve`
+  - **Recipes & costing** `/recipes` — phase 4 — requires any of: `recipe.view`
+- **Inventory** — phase 4
+  - **Items & units** `/inventory/items` — phase 1 — requires any of: `inv.item.view`
+  - **Stock on hand** `/inventory/stock` — phase 4 — requires any of: `inv.stock.view`
+  - **Transfers, adjustments, wastage** `/inventory/documents` — phase 4 — requires any of: `inv.document.create`, `inv.wastage.record`
+  - **Stock counts** `/inventory/counts` — phase 4 — requires any of: `inv.stock_count`
+- **Purchasing** — phase 5
+  - **Suppliers** `/suppliers` — phase 1 — requires any of: `supl.supplier.view`
+  - **Requisitions** `/purchasing/requisitions` — phase 5 — requires any of: `proc.requisition.create`
+  - **Purchase orders** `/purchasing/orders` — phase 5 — requires any of: `proc.po.create`, `proc.po.approve`
+  - **Goods receipts** `/purchasing/grn` — phase 5 — requires any of: `proc.grn.create`
+  - **Supplier invoices** `/purchasing/invoices` — phase 5 — requires any of: `proc.invoice.create`
+- **Customers & marketing** — phase 6
+  - **Customers** `/customers` — phase 6 — requires any of: `crm.customer.view`
+  - **Loyalty** `/loyalty` — phase 6 — requires any of: `loy.view`
+  - **Campaigns** `/campaigns` — phase 6 — requires any of: `mkt.campaign.view`
+- **Finance** — phase 8
+  - **Expenses** `/expenses` — phase 8 — requires any of: `exp.expense.create`, `exp.expense.approve`
+  - **Ledger & journals** `/accounting` — phase 8 — requires any of: `acct.view`
+  - **Reports** `/reports` — phase 8 — requires any of: `report.sales.view`, `report.cost.view`, `report.financial.view`
+- **Administration** — phase 0
+  - **Company** `/admin/company` — phase 0 — requires any of: `org.company.view`
+  - **Branches** `/admin/branches` — phase 0 — requires any of: `org.branch.view`
+  - **Users** `/admin/users` — phase 0 — requires any of: `iam.user.view`
+  - **Roles & permissions** `/admin/roles` — phase 0 — requires any of: `iam.role.view`
+  - **Devices & sync** `/admin/devices` — phase 0 — requires any of: `sync.status.view`
+  - **Audit log** `/admin/audit` — phase 0 — requires any of: `audit.log.view`
